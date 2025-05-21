@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shopping Cart App</title>
+<link rel="stylesheet" href="Cart.css">
+</head>
+<body>
+<div class="container">
+<section id="register-section" class="centered">
+<h2>Register</h2>
+<form id="register-form">
+<input type="text" id="reg-username" placeholder="Username" required>
+<input type="password" id="reg-password" placeholder="Password" required>
+<button type="submit">Register</button>
+</form>
+<p>Already have an account? <a href="#" id="to-login">Login</a></p>
+</section>
+<section id="login-section" class="centered" style="display:none;">
+<h2>Login</h2>
+<form id="login-form">
+<input type="text" id="login-username" placeholder="Username" required>
+<input type="password" id="login-password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="#" id="to-register">Register</a></p>
+</section>
+<section id="catalog-section" style="display:none;">
+<header>
+<h2>Catalog</h2>
+<button id="to-cart" class="cart-btn">Go to Cart (<span id="cart-count">0</span>)</button>
+</header>
+<div class="catalog-grid">
+<div class="product-card">
+<img src="https://m.media-amazon.com/images/I/61ltD0gc9yL._AC_UY1100_.jpg" alt="Snich shirt">
+<h3>Shirt 1</h3>
+<p>₹499</p>
+<button class="add-cart" data-name="Snich shirt" data-price="499">Add to Cart</button>
+</div>
+<div class="product-card">
+<img src="https://www.beyours.in/cdn/shop/files/elite-white-shirt-3.jpg?v=1713157649&width=1200" alt="Shirt jack and jones">
+<h3>Shirt 2</h3>
+<p>₹599</p>
+<button class="add-cart" data-name="Shirt jack and jones" data-price="599">Add to Cart</button>
+</div>
+<div class="product-card">
+<img src="https://m.media-amazon.com/images/I/91qdN8vNgAL._AC_UY1100_.jpg" alt="Pepe jeans">
+<h3>Pant 1</h3>
+<p>₹799</p>
+<button class="add-cart" data-name="Pepe jeans" data-price="799">Add to Cart</button>
+</div>
+<div class="product-card">
+<img src="https://m.media-amazon.com/images/I/71XfkIjTcFL._AC_UY1100_.jpg" alt="tommy hilfigure">
+<h3>Pant 2</h3>
+<p>₹899</p>
+<button class="add-cart" data-name="tommy hilfigure" data-price="899">Add to Cart</button>
+</div>
+</div>
+</section>
+<section id="cart-section" style="display:none;">
+<header>
+<h2>Your Cart</h2>
+<button id="back-to-catalog">Back to Catalog</button>
+</header>
+<div id="cart-items"></div>
+<div id="cart-total"></div>
+</section>
+</div>
+<script>
+const regSection=document.getElementById('register-section'),loginSection=document.getElementById('login-section'),catalogSection=document.getElementById('catalog-section'),cartSection=document.getElementById('cart-section'),cartCount=document.getElementById('cart-count'),cartItemsDiv=document.getElementById('cart-items'),cartTotalDiv=document.getElementById('cart-total');let user=null,cart=[];document.getElementById('register-form').onsubmit=function(e){e.preventDefault();user={username:document.getElementById('reg-username').value,password:document.getElementById('reg-password').value};regSection.style.display='none';loginSection.style.display='flex';};document.getElementById('to-login').onclick=function(){regSection.style.display='none';loginSection.style.display='flex';};document.getElementById('login-form').onsubmit=function(e){e.preventDefault();if(user&&document.getElementById('login-username').value===user.username&&document.getElementById('login-password').value===user.password){loginSection.style.display='none';catalogSection.style.display='block';}else{alert('Invalid credentials!');}};document.getElementById('to-register').onclick=function(){loginSection.style.display='none';regSection.style.display='flex';};document.querySelectorAll('.add-cart').forEach(btn=>{btn.onclick=function(){const name=btn.getAttribute('data-name'),price=parseInt(btn.getAttribute('data-price')),existing=cart.find(item=>item.name===name);existing?existing.qty+=1:cart.push({name,price,qty:1});cartCount.textContent=cart.reduce((sum,item)=>sum+item.qty,0);catalogSection.style.display='none';cartSection.style.display='block';renderCart();};});document.getElementById('to-cart').onclick=function(){catalogSection.style.display='none';cartSection.style.display='block';renderCart();};document.getElementById('back-to-catalog').onclick=function(){cartSection.style.display='none';catalogSection.style.display='block';};function renderCart(){cartItemsDiv.innerHTML='';if(cart.length===0){cartItemsDiv.innerHTML='<p>Your cart is empty.</p>';cartTotalDiv.textContent='';return;}cart.forEach(item=>{const div=document.createElement('div');div.className='cart-item';div.innerHTML=`<span>${item.name} (x${item.qty})</span><span>₹${item.price*item.qty}</span>`;cartItemsDiv.appendChild(div);});const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);cartTotalDiv.textContent='Total: ₹'+total;}
+</script>
+</body>
+</html>

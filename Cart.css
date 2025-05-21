@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f7f7;
+}
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 24px;
+}
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 350px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 300px;
+}
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+button {
+    padding: 10px;
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #005fa3;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.cart-btn {
+    background: #ff9800;
+}
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+}
+.product-card {
+    background: #f3f3f3;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.product-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.product-card h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+}
+.product-card p {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+.add-cart {
+    background: #28a745;
+}
+.add-cart:hover {
+    background: #1e7e34;
+}
+#cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    background: #e3e3e3;
+    padding: 10px;
+    border-radius: 5px;
+}
+#cart-total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: right;
+}
+@media (max-width: 600px) {
+    .container {
+        padding: 8px;
+    }
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
+}
